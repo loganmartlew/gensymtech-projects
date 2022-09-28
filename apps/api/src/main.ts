@@ -1,16 +1,22 @@
-import * as express from 'express';
-import { Message } from '@gensymtech-projects/api-interfaces';
+import getApp from './app';
+import { environment } from './environments/environment';
+import { Logger } from './loaders/logger';
 
-const app = express();
+// import 'reflect-metadata';
 
-const greeting: Message = { message: 'Welcome to api!' };
+async function main() {
+  const app = await getApp();
+  const port = process.env.PORT || 3333;
 
-app.get('/api', (req, res) => {
-  res.send(greeting);
-});
+  const server = app.listen(port, () => {
+    Logger.info('--------------------------------------------------');
+    Logger.info(`           Server running on port: ${port}           `);
+    if (environment.production === false) {
+      Logger.info(`Base endpoint of the api is: http://localhost:${port}`);
+    }
+    Logger.info('--------------------------------------------------');
+  });
+  server.on('error', Logger.error);
+}
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log('Listening at http://localhost:' + port + '/api');
-});
-server.on('error', console.error);
+main();
