@@ -3,6 +3,7 @@
 import { Express } from 'express';
 import { json, urlencoded } from 'body-parser';
 import cors from 'cors';
+import getRouter from '../app/router';
 // import routes from '../routes';
 // import { Logger } from './logger';
 
@@ -35,7 +36,7 @@ export default (app: Express) => {
   app.use(json());
   app.use(urlencoded({ extended: true }));
 
-  // app.use(routes);
+  app.use(getRouter());
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
