@@ -1,10 +1,10 @@
-import Layout from '../features/layout/Layout';
+import AppRouter from './AppRouter';
 import Providers from './Providers';
 
 const App = () => {
   return (
     <Providers>
-      <Layout />
+      <AppRouter />
     </Providers>
   );
 };
