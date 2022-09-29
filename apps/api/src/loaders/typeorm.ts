@@ -2,8 +2,9 @@ import { DataSource } from 'typeorm';
 import { db } from '../config';
 import { Logger } from './logger';
 import { environment } from '../environments/environment';
+import Project from '../features/projects/project.entity';
 
-const entities = [];
+const entities = [Project];
 
 export default async () => {
   const dbVars = db();
