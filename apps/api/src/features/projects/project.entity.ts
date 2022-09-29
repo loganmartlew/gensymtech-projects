@@ -1,6 +1,7 @@
 import { IProject } from '@gensymtech-projects/api-interfaces';
 import { ProjectStatus } from '@gensymtech-projects/types';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,7 +11,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export default class Project implements IProject {
+export default class Project extends BaseEntity implements IProject {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
