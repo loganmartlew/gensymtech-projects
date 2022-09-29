@@ -1,3 +1,5 @@
+import { IProject } from '@gensymtech-projects/api-interfaces';
+import { ProjectStatus } from '@gensymtech-projects/types';
 import {
   Column,
   CreateDateColumn,
@@ -7,14 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-enum ProjectStatus {
-  PLANNED = 'planned',
-  IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed',
-}
-
 @Entity()
-export default class Project {
+export default class Project implements IProject {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
