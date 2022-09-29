@@ -1,9 +1,10 @@
+import Layout from '../features/layout/Layout';
 import Providers from './Providers';
 
 const App = () => {
   return (
     <Providers>
-      <h1>Client</h1>;
+      <Layout />
     </Providers>
   );
 };
