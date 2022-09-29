@@ -1,0 +1,15 @@
+{
+  "root": "libs/errors",
+  "sourceRoot": "libs/errors/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/errors/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
