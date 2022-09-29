@@ -1,5 +1,7 @@
+import { Controller } from '@gensymtech-projects/api-interfaces';
 import express, { RequestHandler } from 'express';
 import { Logger } from '../loaders/logger';
+import formatResponse from './formatResponse';
 
 enum Method {
   GET = 'get',
@@ -18,7 +20,7 @@ type Route =
   | {
       path: string;
       method: Method;
-      handler: RequestHandler;
+      handler: Controller<unknown>;
       subroutes: Route[];
     };
 
@@ -28,10 +30,6 @@ const routes: Route[] = [
     subroutes: [
       {
         path: 'test',
-        method: Method.GET,
-        handler: (req, res) => {
-          res.send('test');
-        },
         subroutes: [],
       },
     ],
@@ -45,7 +43,7 @@ const getRouter = () => {
     const path = [...currentPaths, route.path].join('/') || '/';
 
     if (route.handler) {
-      router[route.method](`${path}`, route.handler);
+      router[route.method](`${path}`, formatResponse(route.handler));
       Logger.info(
         `ROUTER: Route ${route.method.toUpperCase()} ${path} assigned`
       );

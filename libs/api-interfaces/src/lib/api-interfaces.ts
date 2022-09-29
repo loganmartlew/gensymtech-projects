@@ -1,4 +1,5 @@
 import { ApiError } from '@gensymtech-projects/errors';
+import { Request } from 'express';
 
 export type ApiResponse<T> =
   | {
