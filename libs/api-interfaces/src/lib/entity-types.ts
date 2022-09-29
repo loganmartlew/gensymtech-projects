@@ -7,7 +7,6 @@ export interface IProject {
   status: ProjectStatus;
   order: number;
   dependencies: IProject[];
-  dependants: IProject[];
   createdAt: Date;
   updatedAt: Date;
 }

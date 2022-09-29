@@ -2,7 +2,7 @@ import { Express } from 'express';
 import dotenvLoader from './dotenv';
 import expressLoader from './express';
 import loggerLoader, { Logger } from './logger';
-// import typeormLoader from './typeorm';
+import typeormLoader from './typeorm';
 
 export default async (app: Express) => {
   await loggerLoader(app);
@@ -14,6 +14,6 @@ export default async (app: Express) => {
   await expressLoader(app);
   Logger.info('Express app loaded and configured');
 
-  // await typeormLoader();
-  // Logger.info('Typeorm loaded and configured');
+  await typeormLoader();
+  Logger.info('Typeorm loaded and configured');
 };

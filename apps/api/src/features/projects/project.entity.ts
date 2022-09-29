@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -31,11 +32,9 @@ export default class Project extends BaseEntity implements IProject {
   @Column({ default: -1 })
   order: number;
 
-  @ManyToMany(() => Project, (project) => project.dependants)
+  @ManyToMany(() => Project)
+  @JoinTable()
   dependencies: Project[];
-
-  @ManyToMany(() => Project, (project) => project.dependencies)
-  dependants: Project[];
 
   @CreateDateColumn()
   createdAt: Date;
