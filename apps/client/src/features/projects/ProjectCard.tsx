@@ -9,7 +9,7 @@ import {
   ActionIcon,
   useMantineTheme,
 } from '@mantine/core';
-import { IconGripVertical } from '@tabler/icons';
+import { IconGripVertical, IconTrash } from '@tabler/icons';
 
 interface Props {
   project: IProject;
@@ -30,11 +30,19 @@ const ProjectCard: FC<Props> = ({ project }) => {
         <ActionIcon>
           <IconGripVertical size={16} />
         </ActionIcon>
+
         <Stack spacing={theme.spacing.xs}>
           <Title order={4}>{project.name}</Title>
-          <Button variant="outline" size="xs" sx={{ width: 'max-content' }}>
-            View Details
-          </Button>
+
+          <Group spacing={theme.spacing.xs}>
+            <Button variant="outline" size="xs" sx={{ width: 'max-content' }}>
+              View Details
+            </Button>
+
+            <ActionIcon color="red" variant="filled">
+              <IconTrash size={16} />
+            </ActionIcon>
+          </Group>
         </Stack>
       </Group>
     </Paper>
