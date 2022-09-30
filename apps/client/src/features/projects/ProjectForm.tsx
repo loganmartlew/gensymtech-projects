@@ -1,5 +1,7 @@
-import { IProject } from '@gensymtech-projects/api-interfaces';
+import { IProject, ProjectDTO } from '@gensymtech-projects/api-interfaces';
 import { ProjectStatus } from '@gensymtech-projects/types';
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Paper,
   Box,
@@ -12,7 +14,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { FC } from 'react';
+import { useCreateProject } from './api/createProject';
 
 interface FormValues {
   name: string;
@@ -27,6 +29,7 @@ interface Props {
 
 const ProjectForm: FC<Props> = ({ projects }) => {
   const theme = useMantineTheme();
+  const navigate = useNavigate();
   const form = useForm<FormValues>({
     initialValues: {
       name: '',
@@ -55,8 +58,20 @@ const ProjectForm: FC<Props> = ({ projects }) => {
     },
   });
 
+  const { mutate } = useCreateProject(() => {
+    form.reset();
+    navigate('/');
+  });
+
   const handleSubmit = (values: FormValues) => {
-    console.log(values);
+    const dto: ProjectDTO = {
+      name: values.name,
+      description: values.description,
+      status: values.status ?? ProjectStatus.PLANNED,
+      dependencies: values.dependencies,
+    };
+
+    mutate(dto);
   };
 
   return (
