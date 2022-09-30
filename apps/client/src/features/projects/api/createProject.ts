@@ -1,5 +1,5 @@
 import { CreateProject, ProjectDTO } from '@gensymtech-projects/api-interfaces';
-import { useMutation, useQueryClient } from 'react-query';
+import useCustomMutation from 'apps/client/src/util/useCustomMutation';
 import { axios } from '../../../config/axios';
 import fetchFromApi from '../../../util/fetchFromApi';
 import { allProjectsKey } from './getProjects';
@@ -12,15 +12,12 @@ export const useCreateProject = (
   onSuccess: () => void,
   onError?: (error: unknown, variables: ProjectDTO) => void
 ) => {
-  const queryClient = useQueryClient();
-
-  const { mutate, isLoading } = useMutation(createProject, {
+  return useCustomMutation<ProjectDTO>(createProject, {
+    queryKey: () => allProjectsKey,
     onSuccess,
     onError,
-    onSettled: () => {
-      queryClient.invalidateQueries([...allProjectsKey]);
-    },
+    pendingMessage: 'Creating project...',
+    successMessage: 'Project created successfully',
+    errorMessage: 'Failed to create project',
   });
-
-  return { mutate, isLoading };
 };

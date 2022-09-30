@@ -1,4 +1,5 @@
 import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 import { FC, ReactNode } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
@@ -12,7 +13,9 @@ const Providers: FC<Props> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider withNormalizeCSS withGlobalStyles>
-        {children}
+        <NotificationsProvider autoClose={4000}>
+          {children}
+        </NotificationsProvider>
       </MantineProvider>
     </QueryClientProvider>
   );
