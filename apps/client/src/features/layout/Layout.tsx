@@ -7,7 +7,7 @@ const Layout: FC = () => {
   return (
     <>
       <Header />
-      <Container>
+      <Container sx={{ paddingTop: 20 }}>
         <main>
           <Outlet />
         </main>
