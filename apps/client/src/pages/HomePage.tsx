@@ -1,4 +1,3 @@
-import { IProject } from '@gensymtech-projects/api-interfaces';
 import { ProjectStatus } from '@gensymtech-projects/types';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
