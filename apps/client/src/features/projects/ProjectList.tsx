@@ -4,7 +4,7 @@ import { Text, Stack } from '@mantine/core';
 import ProjectCard from './ProjectCard';
 
 interface Props {
-  projects: IProject[];
+  projects: IProject[] | undefined;
   isLoading: boolean;
 }
 
@@ -12,8 +12,8 @@ const ProjectList: FC<Props> = ({ projects, isLoading }) => {
   const noProjects = useMemo(() => <Text>No Projects.</Text>, []);
   const loading = useMemo(() => <Text>Loading...</Text>, []);
 
-  if (!projects || !projects.length) return noProjects;
   if (isLoading) return loading;
+  if (!projects || !projects.length) return noProjects;
 
   return (
     <Stack>

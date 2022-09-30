@@ -6,21 +6,11 @@ import { Group, Stack, Title, Button } from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import StatusColumnCard from '../features/projects/StatusColumnCard';
 import ProjectList from '../features/projects/ProjectList';
-
-const projects: IProject[] = [
-  {
-    id: '1',
-    name: 'Furnace Array',
-    description: 'Furnace Array',
-    status: ProjectStatus.COMPLETED,
-    dependencies: [],
-    order: -1,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+import { useAllProjects } from '../features/projects/api/getProjects';
 
 const HomePage: FC = () => {
+  const { data: projects, isLoading } = useAllProjects();
+
   return (
     <Stack>
       <Group>
@@ -38,28 +28,28 @@ const HomePage: FC = () => {
       <Group grow align="flex-start">
         <StatusColumnCard title="Planned">
           <ProjectList
-            projects={projects.filter(
+            projects={projects?.filter(
               (project) => project.status === ProjectStatus.PLANNED
             )}
-            isLoading={false}
+            isLoading={isLoading}
           />
         </StatusColumnCard>
 
         <StatusColumnCard title="In Progress">
           <ProjectList
-            projects={projects.filter(
+            projects={projects?.filter(
               (project) => project.status === ProjectStatus.IN_PROGRESS
             )}
-            isLoading={false}
+            isLoading={isLoading}
           />
         </StatusColumnCard>
 
         <StatusColumnCard title="Completed">
           <ProjectList
-            projects={projects.filter(
+            projects={projects?.filter(
               (project) => project.status === ProjectStatus.COMPLETED
             )}
-            isLoading={false}
+            isLoading={isLoading}
           />
         </StatusColumnCard>
       </Group>
