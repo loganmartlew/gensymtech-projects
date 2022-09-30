@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Container, Title } from '@mantine/core';
 
@@ -12,7 +13,9 @@ const Header: FC = () => {
   return (
     <StyledHeader>
       <Container sx={{ paddingBlock: 15 }}>
-        <Title order={1}>GensymTech Projects</Title>
+        <Link to="/">
+          <Title order={1}>GensymTech Projects</Title>
+        </Link>
       </Container>
     </StyledHeader>
   );

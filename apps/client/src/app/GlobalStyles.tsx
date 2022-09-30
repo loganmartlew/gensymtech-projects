@@ -15,6 +15,11 @@ const GlobalStyles: FC = () => {
               ? theme.colors['dark'][7]
               : theme.colors['gray'][1],
         },
+
+        a: {
+          color: 'inherit',
+          textDecoration: 'none',
+        },
       })}
     />
   );

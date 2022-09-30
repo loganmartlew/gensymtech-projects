@@ -26,7 +26,7 @@ const ProjectCard: FC<Props> = ({ project }) => {
         backgroundColor: theme.colors['gray'][1],
       }}
     >
-      <Group align="flex-start">
+      <Group align="flex-start" spacing={theme.spacing.xs}>
         <ActionIcon>
           <IconGripVertical size={16} />
         </ActionIcon>
