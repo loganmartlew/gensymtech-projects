@@ -18,7 +18,7 @@ const ProjectList: FC<Props> = ({ projects, isLoading, draggable }) => {
   if (!projects || !projects.length) return noProjects;
 
   return (
-    <Stack>
+    <Stack spacing="md">
       {draggable &&
         projects.map((project, index) => (
           <Draggable key={project.id} draggableId={project.id} index={index}>
