@@ -1,5 +1,6 @@
 import { IProject } from '@gensymtech-projects/api-interfaces';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Paper,
   Group,
@@ -10,6 +11,8 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { IconGripVertical, IconTrash } from '@tabler/icons';
+import DeleteDialog from '../../components/DeleteDialog';
+import { useDeleteProject } from './api/deleteProject';
 
 interface Props {
   project: IProject;
@@ -17,6 +20,17 @@ interface Props {
 
 const ProjectCard: FC<Props> = ({ project }) => {
   const theme = useMantineTheme();
+  const navigate = useNavigate();
+
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
+  const { mutate } = useDeleteProject(() => {
+    navigate('/');
+  });
+
+  const confirm = () => {
+    mutate(project.id);
+  };
 
   return (
     <Paper
@@ -39,9 +53,19 @@ const ProjectCard: FC<Props> = ({ project }) => {
               View Details
             </Button>
 
-            <ActionIcon color="red" variant="filled">
+            <ActionIcon
+              color="red"
+              variant="filled"
+              onClick={() => setDialogOpen(true)}
+            >
               <IconTrash size={16} />
             </ActionIcon>
+            <DeleteDialog
+              open={dialogOpen}
+              handleClose={() => setDialogOpen(false)}
+              onConfirm={confirm}
+              entity="project"
+            />
           </Group>
         </Stack>
       </Group>
