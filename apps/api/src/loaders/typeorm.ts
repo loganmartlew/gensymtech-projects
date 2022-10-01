@@ -3,8 +3,9 @@ import { db } from '../config';
 import { Logger } from './logger';
 import { environment } from '../environments/environment';
 import Project from '../features/projects/project.entity';
+import User from '../features/users/user.entity';
 
-const entities = [Project];
+const entities = [Project, User];
 
 export default async () => {
   const dbVars = db();

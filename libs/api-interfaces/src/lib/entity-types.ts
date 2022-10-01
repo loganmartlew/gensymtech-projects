@@ -10,3 +10,8 @@ export interface IProject {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IUser {
+  id: string;
+  email: string;
+}
