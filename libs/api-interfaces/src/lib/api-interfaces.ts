@@ -26,3 +26,4 @@ export type GetAllProjects = Controller<IProject[]>;
 export type GetProject = Controller<IProject>;
 export type UpdateProject = Controller<IProject>;
 export type DeleteProject = Controller<IProject>;
+export type MoveProjects = Controller<IProject[]>;

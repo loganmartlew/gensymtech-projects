@@ -1,40 +1,91 @@
-import { ProjectDTO } from '@gensymtech-projects/api-interfaces';
 import { ProjectStatus } from '@gensymtech-projects/types';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { useQueryClient } from 'react-query';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { Group, Stack, Title, Button } from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import StatusColumnCard from '../features/projects/StatusColumnCard';
 import ProjectList from '../features/projects/ProjectList';
-import {
-  allProjectsKey,
-  useAllProjects,
-} from '../features/projects/api/getAllProjects';
-import { useUpdateProject } from '../features/projects/api/updateProject';
+import { useAllProjects } from '../features/projects/api/getAllProjects';
+import { useMoveProjects } from '../features/projects/api/moveProjects';
 
 const HomePage: FC = () => {
-  const queryClient = useQueryClient();
+  const { data: unsortedProjects, isLoading } = useAllProjects();
+  const move = useMoveProjects();
 
-  const { data: projects, isLoading } = useAllProjects();
-  const { mutate } = useUpdateProject(() => {
-    queryClient.invalidateQueries([...allProjectsKey]);
-  });
+  const projects = unsortedProjects?.sort((a, b) => a.order - b.order) ?? [];
 
   const onDragEnd = (result: DropResult) => {
+    console.log(result);
     const project = projects?.find((p) => p.id === result.draggableId);
     if (!project) return;
 
-    if (result.destination?.droppableId !== project.status) {
-      const projectDto: ProjectDTO = {
-        ...project,
-        dependencies: project.dependencies.map((d) => d.id),
-        status: result.destination?.droppableId as ProjectStatus,
-      };
+    if (result.destination?.index == null) return;
 
-      mutate({ id: project.id, dto: projectDto });
+    if (result.destination?.droppableId === result.source.droppableId) {
+      if (result.destination?.index === result.source.index) return;
     }
+
+    const destinationColumn = result.destination.droppableId;
+    const destinationIndex = result.destination.index;
+
+    const newProjects = projects.map((project) => {
+      if (project.id !== result.draggableId) return project;
+
+      return {
+        ...project,
+        status: destinationColumn as ProjectStatus,
+      };
+    });
+
+    const newProject = newProjects.find((p) => p.id === result.draggableId);
+    if (!newProject) return;
+
+    const otherProjects = newProjects.filter(
+      (p) => p.id !== result.draggableId
+    );
+
+    const columns = {
+      [ProjectStatus.PLANNED]: otherProjects.filter(
+        (p) => p.status === ProjectStatus.PLANNED
+      ),
+      [ProjectStatus.IN_PROGRESS]: otherProjects.filter(
+        (p) => p.status === ProjectStatus.IN_PROGRESS
+      ),
+      [ProjectStatus.COMPLETED]: otherProjects.filter(
+        (p) => p.status === ProjectStatus.COMPLETED
+      ),
+    };
+
+    const newOrderedProjects = Object.entries(columns).flatMap(
+      ([status, projects]) => {
+        if (status !== destinationColumn)
+          return projects.map((p, i) => ({
+            ...p,
+            order: i,
+          }));
+
+        return [
+          ...projects.slice(0, destinationIndex),
+          { ...newProject, order: destinationIndex },
+          ...projects.slice(destinationIndex),
+        ].map((p, i) => ({
+          ...p,
+          order: i,
+        }));
+      }
+    );
+
+    const dtos = newOrderedProjects.map((p) => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      status: p.status,
+      order: p.order,
+      dependencies: p.dependencies.map((d) => d.id),
+    }));
+
+    move(dtos);
   };
 
   return (

@@ -3,6 +3,8 @@ import {
   DeleteProject,
   GetAllProjects,
   GetProject,
+  MoveProjects,
+  ProjectMoveDTO,
   UpdateProject,
 } from '@gensymtech-projects/api-interfaces';
 import { StatusCodes } from 'http-status-codes';
@@ -65,6 +67,18 @@ export default class ProjectController {
       status: StatusCodes.OK,
       message: 'Project deleted successfully',
       data: project,
+    };
+  };
+
+  static move: MoveProjects = async (req) => {
+    const dtos = req.body.dtos as ProjectMoveDTO[];
+
+    const projects = await ProjectService.move(dtos);
+
+    return {
+      status: StatusCodes.OK,
+      message: 'Projects moved successfully',
+      data: projects,
     };
   };
 }

@@ -6,3 +6,8 @@ export interface ProjectDTO {
   status: ProjectStatus;
   dependencies: string[];
 }
+
+export interface ProjectMoveDTO extends ProjectDTO {
+  id: string;
+  order: number;
+}

@@ -1,4 +1,7 @@
-import { ProjectDTO } from '@gensymtech-projects/api-interfaces';
+import {
+  ProjectDTO,
+  ProjectMoveDTO,
+} from '@gensymtech-projects/api-interfaces';
 import { ApiError } from '@gensymtech-projects/errors';
 import Project from './project.entity';
 
@@ -43,7 +46,11 @@ export default class ProjectService {
     return project;
   }
 
-  static async update(id: string, projectDto: ProjectDTO): Promise<Project> {
+  static async update(
+    id: string,
+    projectDto: ProjectDTO,
+    order?: number
+  ): Promise<Project> {
     const project = await this.findOne(id);
 
     project.name = projectDto.name;
@@ -52,6 +59,8 @@ export default class ProjectService {
     project.dependencies = await Promise.all(
       projectDto.dependencies.map((id) => this.findOne(id))
     );
+
+    if (order != null) project.order = order;
 
     try {
       const event = await project.save();
@@ -70,5 +79,13 @@ export default class ProjectService {
     } catch (error) {
       throw new ApiError(error, 3005, 'Unable to delete project');
     }
+  }
+
+  static async move(dtos: ProjectMoveDTO[]): Promise<Project[]> {
+    const projects = await Promise.all(
+      dtos.map((dto) => this.update(dto.id, dto, dto.order))
+    );
+
+    return projects;
   }
 }

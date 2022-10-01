@@ -43,6 +43,11 @@ const routes: Route[] = [
             handler: ProjectController.findAll,
           },
           {
+            path: 'move',
+            method: Method.PUT,
+            handler: ProjectController.move,
+          },
+          {
             path: ':id',
             method: Method.GET,
             handler: ProjectController.findOne,
