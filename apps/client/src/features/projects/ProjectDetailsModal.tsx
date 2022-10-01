@@ -20,7 +20,7 @@ const ProjectDetailsModal: FC<Props> = ({ project, open, handleClose }) => {
           <Title order={2}>{project.name}</Title>
           <Button
             component={Link}
-            to="/new-project"
+            to={`/edit-project/${project.id}`}
             size="xs"
             variant="outline"
             leftIcon={<IconEdit size={16} />}
@@ -41,7 +41,7 @@ const ProjectDetailsModal: FC<Props> = ({ project, open, handleClose }) => {
 
         <Stack spacing="xs">
           <Title order={5}>Dependencies:</Title>
-          {project.dependencies.length > 0 ? (
+          {project.dependencies?.length > 0 ? (
             <ProjectList projects={project.dependencies} isLoading={false} />
           ) : (
             <Text>No dependencies</Text>

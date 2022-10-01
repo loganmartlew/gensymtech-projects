@@ -4,6 +4,7 @@ import Layout from '../features/layout/Layout';
 
 import HomePage from '../pages/HomePage';
 import NewProjectPage from '../pages/NewProjectPage';
+import EditProjectPage from '../pages/EditProjectPage';
 import ProjectDetailsPage from '../pages/ProjectDetailsPage';
 
 const AppRouter: FC = () => {
@@ -14,6 +15,7 @@ const AppRouter: FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/projects/:id" element={<ProjectDetailsPage />} />
           <Route path="/new-project" element={<NewProjectPage />} />
+          <Route path="/edit-project/:id" element={<EditProjectPage />} />
         </Route>
       </Routes>
     </Router>

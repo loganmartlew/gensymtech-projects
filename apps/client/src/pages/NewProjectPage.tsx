@@ -6,8 +6,8 @@ import { useAllProjects } from '../features/projects/api/getAllProjects';
 const NewProjectPage: FC = () => {
   const { data: projects, isLoading } = useAllProjects();
 
-  if (isLoading) return <Title>Loading...</Title>;
-  if (!projects) return null;
+  if (isLoading) return <Title order={4}>Loading...</Title>;
+  if (!projects) return <Title order={2}>Projects Not Found</Title>;
 
   return (
     <Stack>

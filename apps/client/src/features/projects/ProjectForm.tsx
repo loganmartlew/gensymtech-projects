@@ -15,6 +15,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useCreateProject } from './api/createProject';
+import { useUpdateProject } from './api/updateProject';
 
 interface FormValues {
   name: string;
@@ -25,17 +26,18 @@ interface FormValues {
 
 interface Props {
   projects: IProject[];
+  editProject?: IProject;
 }
 
-const ProjectForm: FC<Props> = ({ projects }) => {
+const ProjectForm: FC<Props> = ({ projects, editProject }) => {
   const theme = useMantineTheme();
   const navigate = useNavigate();
   const form = useForm<FormValues>({
     initialValues: {
-      name: '',
-      description: '',
-      status: null,
-      dependencies: [],
+      name: editProject?.name || '',
+      description: editProject?.description || '',
+      status: editProject?.status || null,
+      dependencies: editProject?.dependencies.map((d) => d.id) || [],
     },
 
     validate: {
@@ -58,10 +60,13 @@ const ProjectForm: FC<Props> = ({ projects }) => {
     },
   });
 
-  const { mutate } = useCreateProject(() => {
+  const onSuccess = () => {
     form.reset();
     navigate('/');
-  });
+  };
+
+  const { mutate: create } = useCreateProject(onSuccess);
+  const { mutate: update } = useUpdateProject(onSuccess);
 
   const handleSubmit = (values: FormValues) => {
     const dto: ProjectDTO = {
@@ -71,7 +76,11 @@ const ProjectForm: FC<Props> = ({ projects }) => {
       dependencies: values.dependencies,
     };
 
-    mutate(dto);
+    if (editProject) {
+      update({ id: editProject.id, dto });
+    } else {
+      create(dto);
+    }
   };
 
   return (
