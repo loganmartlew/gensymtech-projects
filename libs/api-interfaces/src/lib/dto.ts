@@ -11,3 +11,8 @@ export interface ProjectMoveDTO extends ProjectDTO {
   id: string;
   order: number;
 }
+
+export interface UserDTO {
+  email: string;
+  password: string;
+}
