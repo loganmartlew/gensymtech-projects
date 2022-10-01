@@ -1,6 +1,6 @@
 import { IProject } from '@gensymtech-projects/api-interfaces';
 import { FC, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Paper,
   Group,
@@ -13,16 +13,19 @@ import {
 import { IconGripVertical, IconTrash } from '@tabler/icons';
 import DeleteDialog from '../../components/DeleteDialog';
 import { useDeleteProject } from './api/deleteProject';
+import ProjectDetailsModal from './ProjectDetailsModal';
 
 interface Props {
   project: IProject;
+  draggable?: boolean;
 }
 
-const ProjectCard: FC<Props> = ({ project }) => {
+const ProjectCard: FC<Props> = ({ project, draggable }) => {
   const theme = useMantineTheme();
   const navigate = useNavigate();
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [detailsOpen, setDetailsOpen] = useState<boolean>(false);
 
   const { mutate } = useDeleteProject(() => {
     navigate('/');
@@ -41,23 +44,31 @@ const ProjectCard: FC<Props> = ({ project }) => {
       }}
     >
       <Group align="flex-start" spacing={theme.spacing.xs}>
-        <ActionIcon>
-          <IconGripVertical size={16} />
-        </ActionIcon>
+        {draggable && (
+          <ActionIcon>
+            <IconGripVertical size={16} />
+          </ActionIcon>
+        )}
 
         <Stack spacing={theme.spacing.xs}>
           <Title order={4}>{project.name}</Title>
 
           <Group spacing={theme.spacing.xs}>
             <Button
-              component={Link}
-              to={`/projects/${project.id}`}
+              // component={Link}
+              // to={`/projects/${project.id}`}
+              onClick={() => setDetailsOpen(true)}
               variant="outline"
               size="xs"
               sx={{ width: 'max-content' }}
             >
               View Details
             </Button>
+            <ProjectDetailsModal
+              project={project}
+              open={detailsOpen}
+              handleClose={() => setDetailsOpen(false)}
+            />
 
             <ActionIcon
               color="red"

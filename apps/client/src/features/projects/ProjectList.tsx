@@ -6,9 +6,10 @@ import ProjectCard from './ProjectCard';
 interface Props {
   projects: IProject[] | undefined;
   isLoading: boolean;
+  draggable?: boolean;
 }
 
-const ProjectList: FC<Props> = ({ projects, isLoading }) => {
+const ProjectList: FC<Props> = ({ projects, isLoading, draggable }) => {
   const noProjects = useMemo(() => <Text>No Projects.</Text>, []);
   const loading = useMemo(() => <Text>Loading...</Text>, []);
 
@@ -18,7 +19,7 @@ const ProjectList: FC<Props> = ({ projects, isLoading }) => {
   return (
     <Stack>
       {projects.map((project) => (
-        <ProjectCard project={project} />
+        <ProjectCard project={project} draggable={draggable} />
       ))}
     </Stack>
   );

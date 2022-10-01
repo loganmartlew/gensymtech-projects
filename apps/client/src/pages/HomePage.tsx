@@ -31,6 +31,7 @@ const HomePage: FC = () => {
               (project) => project.status === ProjectStatus.PLANNED
             )}
             isLoading={isLoading}
+            draggable
           />
         </StatusColumnCard>
 
@@ -40,6 +41,7 @@ const HomePage: FC = () => {
               (project) => project.status === ProjectStatus.IN_PROGRESS
             )}
             isLoading={isLoading}
+            draggable
           />
         </StatusColumnCard>
 
@@ -49,6 +51,7 @@ const HomePage: FC = () => {
               (project) => project.status === ProjectStatus.COMPLETED
             )}
             isLoading={isLoading}
+            draggable
           />
         </StatusColumnCard>
       </Group>
