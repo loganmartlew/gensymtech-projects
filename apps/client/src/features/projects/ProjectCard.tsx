@@ -1,6 +1,7 @@
 import { IProject } from '@gensymtech-projects/api-interfaces';
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import {
   Paper,
   Group,
@@ -18,9 +19,10 @@ import ProjectDetailsModal from './ProjectDetailsModal';
 interface Props {
   project: IProject;
   draggable?: boolean;
+  handleProps?: DraggableProvidedDragHandleProps;
 }
 
-const ProjectCard: FC<Props> = ({ project, draggable }) => {
+const ProjectCard: FC<Props> = ({ project, draggable, handleProps }) => {
   const theme = useMantineTheme();
   const navigate = useNavigate();
 
@@ -45,7 +47,7 @@ const ProjectCard: FC<Props> = ({ project, draggable }) => {
     >
       <Group align="flex-start" spacing={theme.spacing.xs}>
         {draggable && (
-          <ActionIcon>
+          <ActionIcon {...handleProps}>
             <IconGripVertical size={16} />
           </ActionIcon>
         )}
@@ -55,8 +57,6 @@ const ProjectCard: FC<Props> = ({ project, draggable }) => {
 
           <Group spacing={theme.spacing.xs}>
             <Button
-              // component={Link}
-              // to={`/projects/${project.id}`}
               onClick={() => setDetailsOpen(true)}
               variant="outline"
               size="xs"

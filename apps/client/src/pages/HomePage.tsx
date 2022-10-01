@@ -1,6 +1,7 @@
 import { ProjectStatus } from '@gensymtech-projects/types';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Group, Stack, Title, Button } from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import StatusColumnCard from '../features/projects/StatusColumnCard';
@@ -24,37 +25,57 @@ const HomePage: FC = () => {
         </Button>
       </Group>
 
-      <Group grow align="flex-start">
-        <StatusColumnCard title="Planned">
-          <ProjectList
-            projects={projects?.filter(
-              (project) => project.status === ProjectStatus.PLANNED
-            )}
-            isLoading={isLoading}
-            draggable
-          />
-        </StatusColumnCard>
+      <DragDropContext onDragEnd={console.log}>
+        <Group grow align="flex-start">
+          <StatusColumnCard title="Planned">
+            <Droppable droppableId={ProjectStatus.PLANNED}>
+              {(provided) => (
+                <ul {...provided.droppableProps} ref={provided.innerRef}>
+                  <ProjectList
+                    projects={projects?.filter(
+                      (project) => project.status === ProjectStatus.PLANNED
+                    )}
+                    isLoading={isLoading}
+                    draggable
+                  />
+                </ul>
+              )}
+            </Droppable>
+          </StatusColumnCard>
 
-        <StatusColumnCard title="In Progress">
-          <ProjectList
-            projects={projects?.filter(
-              (project) => project.status === ProjectStatus.IN_PROGRESS
-            )}
-            isLoading={isLoading}
-            draggable
-          />
-        </StatusColumnCard>
+          <StatusColumnCard title="In Progress">
+            <Droppable droppableId={ProjectStatus.IN_PROGRESS}>
+              {(provided) => (
+                <ul {...provided.droppableProps} ref={provided.innerRef}>
+                  <ProjectList
+                    projects={projects?.filter(
+                      (project) => project.status === ProjectStatus.IN_PROGRESS
+                    )}
+                    isLoading={isLoading}
+                    draggable
+                  />
+                </ul>
+              )}
+            </Droppable>
+          </StatusColumnCard>
 
-        <StatusColumnCard title="Completed">
-          <ProjectList
-            projects={projects?.filter(
-              (project) => project.status === ProjectStatus.COMPLETED
-            )}
-            isLoading={isLoading}
-            draggable
-          />
-        </StatusColumnCard>
-      </Group>
+          <StatusColumnCard title="Completed">
+            <Droppable droppableId={ProjectStatus.COMPLETED}>
+              {(provided) => (
+                <ul {...provided.droppableProps} ref={provided.innerRef}>
+                  <ProjectList
+                    projects={projects?.filter(
+                      (project) => project.status === ProjectStatus.COMPLETED
+                    )}
+                    isLoading={isLoading}
+                    draggable
+                  />
+                </ul>
+              )}
+            </Droppable>
+          </StatusColumnCard>
+        </Group>
+      </DragDropContext>
     </Stack>
   );
 };

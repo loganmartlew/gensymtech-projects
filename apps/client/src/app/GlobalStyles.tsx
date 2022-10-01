@@ -20,6 +20,12 @@ const GlobalStyles: FC = () => {
           color: 'inherit',
           textDecoration: 'none',
         },
+
+        'ul, ol': {
+          margin: 0,
+          padding: 0,
+          listStyle: 'none',
+        },
       })}
     />
   );
