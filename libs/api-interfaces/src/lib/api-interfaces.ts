@@ -27,3 +27,6 @@ export type GetProject = Controller<IProject>;
 export type UpdateProject = Controller<IProject>;
 export type DeleteProject = Controller<IProject>;
 export type MoveProjects = Controller<IProject[]>;
+
+export type LoginAuth = Controller<void>;
+export type LogoutAuth = Controller<void>;
