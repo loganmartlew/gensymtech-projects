@@ -2,7 +2,7 @@ import { DeleteProject } from '@gensymtech-projects/api-interfaces';
 import useCustomMutation from 'apps/client/src/util/useCustomMutation';
 import { axios } from '../../../config/axios';
 import fetchFromApi from '../../../util/fetchFromApi';
-import { allProjectsKey } from './getProjects';
+import { allProjectsKey } from './getAllProjects';
 
 export const deleteProject = async (projectId: string) => {
   return fetchFromApi<DeleteProject>(axios.delete(`/projects/${projectId}`));

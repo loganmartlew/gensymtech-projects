@@ -1,6 +1,6 @@
 import { IProject } from '@gensymtech-projects/api-interfaces';
 import { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   Paper,
   Group,
@@ -49,7 +49,13 @@ const ProjectCard: FC<Props> = ({ project }) => {
           <Title order={4}>{project.name}</Title>
 
           <Group spacing={theme.spacing.xs}>
-            <Button variant="outline" size="xs" sx={{ width: 'max-content' }}>
+            <Button
+              component={Link}
+              to={`/projects/${project.id}`}
+              variant="outline"
+              size="xs"
+              sx={{ width: 'max-content' }}
+            >
               View Details
             </Button>
 

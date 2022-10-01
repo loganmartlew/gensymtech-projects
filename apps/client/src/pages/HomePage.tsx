@@ -5,7 +5,7 @@ import { Group, Stack, Title, Button } from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import StatusColumnCard from '../features/projects/StatusColumnCard';
 import ProjectList from '../features/projects/ProjectList';
-import { useAllProjects } from '../features/projects/api/getProjects';
+import { useAllProjects } from '../features/projects/api/getAllProjects';
 
 const HomePage: FC = () => {
   const { data: projects, isLoading } = useAllProjects();

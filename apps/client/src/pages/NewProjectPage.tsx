@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Stack, Title } from '@mantine/core';
 import ProjectForm from '../features/projects/ProjectForm';
-import { useAllProjects } from '../features/projects/api/getProjects';
+import { useAllProjects } from '../features/projects/api/getAllProjects';
 
 const NewProjectPage: FC = () => {
   const { data: projects, isLoading } = useAllProjects();
