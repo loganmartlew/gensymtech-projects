@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { IconEdit } from '@tabler/icons';
-import { Group, Stack, Title, Button } from '@mantine/core';
+import { Group, Stack, Title, Button, Text } from '@mantine/core';
 import { useProject } from '../features/projects/api/getProject';
+import StatusBadge from '../components/StatusBadge';
+import ProjectList from '../features/projects/ProjectList';
 
 const ProjectDetailsPage: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,6 +27,25 @@ const ProjectDetailsPage: FC = () => {
           Edit Project
         </Button>
       </Group>
+
+      <Group spacing="xs">
+        <Title order={5}>Status:</Title>
+        <StatusBadge status={project.status} />
+      </Group>
+
+      <Stack spacing="xs">
+        <Title order={5}>Description:</Title>
+        <Text>{project.description}</Text>
+      </Stack>
+
+      <Stack spacing="xs">
+        <Title order={5}>Dependencies:</Title>
+        {project.dependencies.length > 0 ? (
+          <ProjectList projects={project.dependencies} isLoading={isLoading} />
+        ) : (
+          <Text>No dependencies</Text>
+        )}
+      </Stack>
     </Stack>
   );
 };
