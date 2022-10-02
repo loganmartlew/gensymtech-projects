@@ -44,3 +44,5 @@ Thumbs.db
 *.env
 !.env.example
 !.env.local
+
+ssh-keys
