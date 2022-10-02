@@ -2,9 +2,11 @@ import { ApiError } from '@gensymtech-projects/errors';
 import { Express, Request, Response, NextFunction } from 'express';
 import { json, urlencoded } from 'body-parser';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import getRouter from '../app/router';
 import { Logger } from './logger';
 import { ApiResponse } from '@gensymtech-projects/api-interfaces';
+import { setUser } from '../features/auth/auth.middleware';
 
 export default (app: Express) => {
   app.use((req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +35,10 @@ export default (app: Express) => {
 
   app.use(cors());
   app.use(json());
+  app.use(cookieParser());
   app.use(urlencoded({ extended: true }));
+
+  app.use(setUser);
 
   app.use(getRouter());
 

@@ -6,6 +6,10 @@ import UserService from '../users/user.service';
 
 export default class AuthService {
   static async login(email, password) {
+    if (!email || !password) {
+      throw new ApiError(null, 4003, 'Missing email or password');
+    }
+
     try {
       const user = await UserService.findOneByEmail(email);
       if (!user) throw new ApiError(null, 3002, 'User not found');
@@ -16,7 +20,7 @@ export default class AuthService {
       if (!valid) throw new ApiError(null, 5001, null);
 
       const accessToken = signJWT(userWithoutPassword, '15m');
-      const refreshToken = signJWT(userWithoutPassword, '7d');
+      const refreshToken = signJWT({ refresh: true }, '7d');
 
       return {
         accessToken,

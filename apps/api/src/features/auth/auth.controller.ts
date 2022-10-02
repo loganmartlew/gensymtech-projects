@@ -28,8 +28,15 @@ export default class AuthController {
   };
 
   static logout: LogoutAuth = async (req, res) => {
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
+    res.cookie('accessToken', '', {
+      httpOnly: true,
+      maxAge: 0,
+    });
+
+    res.cookie('refreshToken', '', {
+      httpOnly: true,
+      maxAge: 0,
+    });
 
     return {
       status: 200,

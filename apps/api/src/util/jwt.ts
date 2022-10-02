@@ -8,7 +8,7 @@ export function signJWT(payload: object, expiresIn: string | number) {
   return jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn });
 }
 
-export function verifyJWT(token: string) {
+export function verifyJWT<T>(token: string): { payload: T; expired: boolean } {
   try {
     const decoded = jwt.verify(token, publicKey);
     return { payload: decoded, expired: false };
