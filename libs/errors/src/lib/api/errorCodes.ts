@@ -72,11 +72,22 @@ const validationCodes: Codes = {
   }),
 };
 
+const authCodes: Codes = {
+  5000: new Code({
+    message: 'An unknown authentication error occurred',
+  }),
+  5001: new Code({
+    message: 'Invalid credentials',
+    statusCode: statusCodes.UNAUTHORIZED,
+  }),
+};
+
 const allCodes = {
   ...unknownCodes,
   ...httpCodes,
   ...dbCodes,
   ...validationCodes,
+  ...authCodes,
 };
 
 const validCodesArr = Object.keys(allCodes).map((code) => parseInt(code, 10));

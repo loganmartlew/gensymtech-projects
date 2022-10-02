@@ -31,4 +31,16 @@ export default class UserService {
 
     return user;
   }
+
+  static async findOneByEmail(email: string): Promise<User> {
+    const user = await User.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new ApiError(null, 3002, 'User not found');
+    }
+
+    return user;
+  }
 }
