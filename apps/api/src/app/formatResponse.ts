@@ -8,7 +8,7 @@ const responseFn = (json: ApiResponse<unknown>, res: Response) => {
 export default (controller: Controller<unknown>) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      responseFn(await controller(req), res);
+      responseFn(await controller(req, res), res);
     } catch (err) {
       next(err);
     }

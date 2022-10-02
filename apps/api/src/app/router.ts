@@ -1,5 +1,6 @@
 import { Controller } from '@gensymtech-projects/api-interfaces';
 import express from 'express';
+import AuthController from '../features/auth/auth.controller';
 import ProjectController from '../features/projects/project.controller';
 import { Logger } from '../loaders/logger';
 import formatResponse from './formatResponse';
@@ -61,6 +62,21 @@ const routes: Route[] = [
             path: ':id',
             method: Method.DELETE,
             handler: ProjectController.delete,
+          },
+        ],
+      },
+      {
+        path: 'auth',
+        subroutes: [
+          {
+            path: 'login',
+            method: Method.POST,
+            handler: AuthController.login,
+          },
+          {
+            path: 'logout',
+            method: Method.POST,
+            handler: AuthController.logout,
           },
         ],
       },
