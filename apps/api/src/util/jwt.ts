@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { jwt as jwtConfig } from '../config';
 
-const privateKey = jwtConfig().privateKey;
-const publicKey = jwtConfig().publicKey;
+const privateKey = jwtConfig().privateKey.replace(/\\n/g, '\n');
+const publicKey = jwtConfig().publicKey.replace(/\\n/g, '\n');
 
 export function signJWT(payload: object, expiresIn: string | number) {
   return jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn });

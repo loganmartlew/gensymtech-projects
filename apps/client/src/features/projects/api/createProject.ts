@@ -1,5 +1,5 @@
 import { CreateProject, ProjectDTO } from '@gensymtech-projects/api-interfaces';
-import useCustomMutation from 'apps/client/src/util/useCustomMutation';
+import useCustomMutation from '../../../util/useCustomMutation';
 import { axios } from '../../../config/axios';
 import fetchFromApi from '../../../util/fetchFromApi';
 import { allProjectsKey } from './getAllProjects';

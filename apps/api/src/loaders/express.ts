@@ -33,7 +33,12 @@ export default (app: Express) => {
     }
   });
 
-  app.use(cors());
+  app.use(
+    cors({
+      credentials: true,
+      origin: 'http://localhost:4200',
+    })
+  );
   app.use(json());
   app.use(cookieParser());
   app.use(urlencoded({ extended: true }));

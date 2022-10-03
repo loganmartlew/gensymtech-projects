@@ -6,6 +6,7 @@ import { environment } from '../environments/environment';
 
 export const axios = Axios.create({
   baseURL: environment.apiUrl,
+  withCredentials: true,
 });
 
 axios.interceptors.response.use(

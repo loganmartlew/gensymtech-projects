@@ -10,7 +10,7 @@ export default class UserController {
     return {
       status: 200,
       message: 'Login successful',
-      data: user,
+      data: { id: user.id, email: user.email },
     };
   };
 }
