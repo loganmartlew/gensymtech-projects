@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --projects=client,api",
-    "build": "nx build",
+    "build": "nx run-many --target=build --projects=client,api",
+    "build:api": "nx build api",
     "test": "nx test"
   },
   "private": true,
