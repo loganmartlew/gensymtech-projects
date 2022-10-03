@@ -6,6 +6,7 @@
     "start": "nx run-many --target=serve --projects=client,api",
     "build": "nx run-many --target=build --projects=client,api",
     "build:api": "nx build api",
+    "build:client": "nx build client",
     "test": "nx test"
   },
   "private": true,
