@@ -2,6 +2,9 @@ import {
   MoveProjects,
   ProjectMoveDTO,
 } from '@gensymtech-projects/api-interfaces';
+import { ApiError } from '@gensymtech-projects/errors';
+import { showNotification } from '@mantine/notifications';
+import { IconExclamationMark } from '@tabler/icons';
 import { useMutation, useQueryClient } from 'react-query';
 import { axios } from '../../../config/axios';
 import fetchFromApi from '../../../util/fetchFromApi';
@@ -25,6 +28,16 @@ export const useMoveProjects = () => {
       );
 
       return { previousProjects };
+    },
+    onError: (error: ApiError) => {
+      showNotification({
+        title: 'Error moving project',
+        message: !error.message
+          ? 'Failed to move project'
+          : `${error.errorCode}: ${error.message}`,
+        color: 'red',
+        icon: <IconExclamationMark size={16} />,
+      });
     },
     onSettled: () => {
       queryClient.invalidateQueries([...allProjectsKey]);
