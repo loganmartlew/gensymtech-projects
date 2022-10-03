@@ -33,3 +33,5 @@ export type MoveProjects = Controller<IProject[]>;
 
 export type LoginAuth = Controller<IUser>;
 export type LogoutAuth = Controller<void>;
+
+export type CreateUser = Controller<IUser>;

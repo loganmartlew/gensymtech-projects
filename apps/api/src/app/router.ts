@@ -3,6 +3,7 @@ import express from 'express';
 import AuthController from '../features/auth/auth.controller';
 import { requireAuth } from '../features/auth/auth.middleware';
 import ProjectController from '../features/projects/project.controller';
+import UserController from '../features/users/user.controller';
 import { Logger } from '../loaders/logger';
 import formatResponse from './formatResponse';
 
@@ -88,6 +89,17 @@ const routes: Route[] = [
             method: Method.POST,
             protected: false,
             handler: AuthController.logout,
+          },
+        ],
+      },
+      {
+        path: 'users',
+        subroutes: [
+          {
+            path: '',
+            method: Method.POST,
+            protected: true,
+            handler: UserController.create,
           },
         ],
       },
