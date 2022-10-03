@@ -7,6 +7,7 @@ import getRouter from '../app/router';
 import { Logger } from './logger';
 import { ApiResponse } from '@gensymtech-projects/api-interfaces';
 import { setUser } from '../features/auth/auth.middleware';
+import { environment } from '../environments/environment';
 
 export default (app: Express) => {
   app.use((req: Request, res: Response, next: NextFunction) => {
@@ -36,7 +37,7 @@ export default (app: Express) => {
   app.use(
     cors({
       credentials: true,
-      origin: 'http://localhost:4200',
+      origin: environment.clientUrl,
     })
   );
   app.use(json());
