@@ -9,9 +9,10 @@ export default class ApiError {
   constructor(
     parentError: unknown | null,
     errorCode: number | null,
-    message: string | null
+    message: string | null,
+    override?: boolean
   ) {
-    if (parentError instanceof ApiError) {
+    if (parentError instanceof ApiError && !override) {
       this.parentError = null;
       this.message = parentError.message;
       this.errorCode = parentError.errorCode;

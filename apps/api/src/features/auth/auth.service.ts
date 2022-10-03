@@ -28,9 +28,10 @@ export default class AuthService {
         user: userWithoutPassword,
       };
     } catch (error) {
+      console.log(error);
       if (error instanceof ApiError) {
         if (error.errorCode === 3002) {
-          throw new ApiError(error, 5001, null);
+          throw new ApiError(error, 5001, null, true);
         }
       }
 
