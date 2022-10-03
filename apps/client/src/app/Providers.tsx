@@ -2,6 +2,7 @@ import { MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import { FC, ReactNode } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { AuthProvider } from '../features/auth/authContext';
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,7 @@ const Providers: FC<Props> = ({ children }) => {
     <QueryClientProvider client={queryClient}>
       <MantineProvider withNormalizeCSS withGlobalStyles>
         <NotificationsProvider autoClose={4000}>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </NotificationsProvider>
       </MantineProvider>
     </QueryClientProvider>
