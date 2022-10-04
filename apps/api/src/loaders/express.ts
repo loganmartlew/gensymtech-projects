@@ -37,6 +37,13 @@ export default (app: Express) => {
   app.use(
     cors({
       credentials: true,
+      origin: (origin, callback) => {
+        if (!origin || environment.clientUrl.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
     })
   );
   app.use(json());
