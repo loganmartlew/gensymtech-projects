@@ -13,11 +13,13 @@ export default class AuthController {
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
       maxAge: 1000 * 60 * 15,
+      sameSite: 'none',
     });
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: 'none',
     });
 
     return {
@@ -31,11 +33,13 @@ export default class AuthController {
     res.cookie('accessToken', '', {
       httpOnly: true,
       maxAge: 0,
+      sameSite: 'none',
     });
 
     res.cookie('refreshToken', '', {
       httpOnly: true,
       maxAge: 0,
+      sameSite: 'none',
     });
 
     return {
