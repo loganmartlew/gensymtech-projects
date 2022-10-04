@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { db } from '../config';
 import { Logger } from './logger';
-import { environment } from '../environments/environment';
+// import { environment } from '../environments/environment';
 import Project from '../features/projects/project.entity';
 import User from '../features/users/user.entity';
 
@@ -10,7 +10,9 @@ const entities = [Project, User];
 export default async () => {
   const dbVars = db();
 
-  const prodOptions = environment.production
+  // const prodOptions = environment.production
+  // eslint-disable-next-line no-constant-condition
+  const prodOptions = false
     ? {
         extra: {
           ssl: {
