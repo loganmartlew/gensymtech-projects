@@ -37,7 +37,6 @@ export default (app: Express) => {
   app.use(
     cors({
       credentials: true,
-      origin: environment.clientUrl,
     })
   );
   app.use(json());
