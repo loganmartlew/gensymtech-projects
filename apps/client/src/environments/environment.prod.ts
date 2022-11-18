@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.projects.gensymtech.xyz',
+  apiUrl: 'https://gt-projects.onrender.com',
 };
